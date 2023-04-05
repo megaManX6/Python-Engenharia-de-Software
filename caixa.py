@@ -73,24 +73,31 @@ print(f'Total R${valorTotal} ||||||||||||||||| {item} itens.')
 cedula200Valor = 200
 cedula200Qnt = 2
 cedula200Total = cedula200Qnt*cedula200Valor
+cedula200Troco = 0
 
 cedula100Valor = 100
 cedula100Qnt = 4
+cedula100Troco = 0
 
 cedula50Valor = 50
 cedula50Qnt = 6
+cedula50Troco = 0
 
 cedula10Valor = 10
 cedula10Qnt = 10
+cedula10Troco = 0
 
 cedula5Valor = 5
 cedula5Qnt = 10
+cedula5Troco = 0
 
 moeda1Valor = 1
 moeda1Qnt = 20
+cedula1Troco = 0
 
 moeda50Valor = 0.5
 moeda50Qnt = 20
+moeda50Troco = 0
 
 somaCaixa = (cedula200Qnt*cedula200Valor)+(cedula100Qnt*cedula100Valor)+(cedula50Qnt*cedula50Valor)+(cedula10Qnt*cedula10Valor)+(cedula5Qnt*cedula5Valor)+(moeda1Qnt*moeda1Valor)+(moeda50Qnt*moeda50Valor)
 
@@ -105,14 +112,36 @@ if valorPago == valorTotal:
 elif valorPago > valorTotal:
     troco = valorPago - valorTotal
 
-    if troco>cedula200Total:
+    while (troco//cedula200Valor) >= 1:
+
+        cedula200Qnt -= 1
+        troco -= cedula200Valor
+        cedula200Troco += 1
+
+    while (troco//cedula100Valor) >= 1:
+
+        cedula100Qnt -= 1
+        troco -= cedula100Valor
+        cedula100Troco += 1
+
+    while (troco//cedula50Valor) >= 1:
+
+        cedula50Qnt -= 1
+        troco -= cedula50Valor
+        cedula100Troco += 1
+
+
         
         
-    
+        
+        
+        
+    print(f' {cedula200Troco} cedulas de R$200')
+    print(f' {cedula100Troco} cedulas de R$100')
     print(f'Troco: R${troco}')
 
 else:
-    print('Valor pago insuficiente!)
+    print('Valor pago insuficiente!')
     valorPago = float(input('Insira novamente valor pago: R$'))
 
 
