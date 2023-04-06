@@ -17,7 +17,7 @@ while senha != 2987:
         print('Senha Correta, caixa aberto!\n')
 
 
-print('Bem Vindo ao FLEC Supermercado!\n')
+print('Bem Vindo ao Supermercado!\n')
 
 #LEITURA DAS VENDAS
 valorTotal = 0
@@ -29,13 +29,13 @@ finalizar = 'N'
 print("INSERÇÃO DOS ITENS VENDIDOS:")
 
 while finalizar == 'N':
-    
+
     valorInserido = float(input(f'Digite o valor do item {item}: R$'))
 
 
     #Opção 0: Continuar ou Finalizar a inserção de valores
     if valorInserido == 0:
-       finalizar = str(input("Deseja realmente finalizar? (S = Sim | N = Não): "))
+       finalizar = str(input("Deseja realmente finalizar? (S = Sim | N = Não): ").upper())
 
        if finalizar == 'N':
             valorInserido = float(input(f'Digite o valor do item {item}: R$'))
@@ -54,12 +54,12 @@ while finalizar == 'N':
     elif valorInserido == -1:
         item -= 1
         valorTotal -= valorComputado
-        
+
         valorInserido = float(input(f'Digite o valor correto do item {item}: R$'))
         valorComputado = valorInserido
         valorTotal += valorComputado
         item += 1
-        
+
     else:
         item += 1
         valorComputado = valorInserido
@@ -93,7 +93,7 @@ cedula5Troco = 0
 
 moeda1Valor = 1
 moeda1Qnt = 20
-cedula1Troco = 0
+moeda1Troco = 0
 
 moeda50Valor = 0.5
 moeda50Qnt = 20
@@ -111,38 +111,70 @@ if valorPago == valorTotal:
 
 elif valorPago > valorTotal:
     troco = valorPago - valorTotal
+    print(f'Troco: R${troco}')
 
-    while (troco//cedula200Valor) >= 1:
+    while (troco//cedula200Valor) >= 1 and cedula200Qnt>0:
 
         cedula200Qnt -= 1
         troco -= cedula200Valor
         cedula200Troco += 1
 
-    while (troco//cedula100Valor) >= 1:
+    '''
+    while (troco//cedula100Valor) >= 1 and cedula100Qnt>0:
 
         cedula100Qnt -= 1
         troco -= cedula100Valor
         cedula100Troco += 1
+    '''
+    if (troco//cedula100Valor) >= 1:
+        if cedula100Qnt > 0:
+            while cedula100Qnt > 0:
+                cedula100Qnt -= 1
+                troco -= cedula100Valor
+                cedula100Troco += 1
 
-    while (troco//cedula50Valor) >= 1:
+
+    while (troco//cedula50Valor) >= 1 and cedula50Qnt>0:
 
         cedula50Qnt -= 1
         troco -= cedula50Valor
-        cedula100Troco += 1
+        cedula50Troco += 1
 
+    while (troco//cedula10Valor) >= 1 and cedula10Qnt>0:
 
-        
-        
-        
-        
-        
+        cedula10Qnt -= 1
+        troco -= cedula10Valor
+        cedula10Troco += 1
+
+    while (troco//cedula5Valor) >= 1 and cedula5Qnt>0:
+
+        cedula5Qnt -= 1
+        troco -= cedula5Valor
+        cedula5Troco += 1
+
+    while (troco//moeda1Valor) >= 1 and moeda1Qnt>0:
+
+        moeda1Qnt -= 1
+        troco -= moeda1Valor
+        moeda1Troco += 1
+
+    while (troco//moeda50Valor) >= 1 and moeda50Qnt>0:
+
+        moeda50Qnt -= 1
+        troco -= moeda50Valor
+        moeda50Troco += 1
+
     print(f' {cedula200Troco} cedulas de R$200')
     print(f' {cedula100Troco} cedulas de R$100')
-    print(f'Troco: R${troco}')
+    print(f' {cedula50Troco} cedulas de R$50')
+    print(f' {cedula10Troco} cedulas de R$10')
+    print(f' {cedula5Troco} cedulas de R$5')
+    print(f' {moeda1Troco} moedas de R$1')
+    print(f' {moeda50Troco} moedas de R$0,50')
 
 else:
     print('Valor pago insuficiente!')
     valorPago = float(input('Insira novamente valor pago: R$'))
 
 
-print(somaCaixa)
+
